@@ -7,7 +7,8 @@
 
 use std::{thread, time::Duration};
 
-use rusty_sysmon::utility::{host::HostUtil, ram::RamUtil};
+use rusty_sysmon::utility::{cpu::CpuUtill, host::HostUtil, ram::RamUtil};
+use sysinfo::System;
 
 
 fn main() {
@@ -19,15 +20,23 @@ fn main() {
 
     // println!("done after 5 secodes");
 
-    let host_name = HostUtil::get_os_name();
-    println!("{}", host_name);
+    // let host_name = HostUtil::get_os_name();
+    // println!("{}", host_name);
 
-    let kernel_version = HostUtil::get_kernel_version();
-    println!("{}", kernel_version);
+    // let kernel_version = HostUtil::get_kernel_version();
+    // println!("{}", kernel_version);
 
-    let os_version = HostUtil::get_os_version();
-    println!("{}", os_version);
+    // let os_version = HostUtil::get_os_version();
+    // println!("{}", os_version);
 
-    let os_host_name = HostUtil::get_host_name();
-    println!("{}", os_host_name);
+    // let os_host_name = HostUtil::get_host_name();
+    // println!("{}", os_host_name);
+
+    let cpu_core = CpuUtill::get_cpu_used();
+    println!("cpu core of this machine {:?} core.", cpu_core);
+    
+   
+
+
+
 }
