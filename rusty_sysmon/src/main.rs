@@ -41,6 +41,11 @@ fn main() {
 //    let network = NetworkUtill::get_host_ipv6();
 //    println!("{}", network);
 
+    let data = NetworkUtill::get_network_traffic_per_second();
+    for thing in data.data {
+        println!("device {}, upload: {} kb, download {} kb", thing.interface_name, thing.upload_per_sec, thing.download_per_sec)
+    }
+
 
 
 }

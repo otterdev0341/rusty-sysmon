@@ -1,5 +1,5 @@
 use std::{thread, time::Duration, vec};
-use num_cpus::get_physical;
+
 
 use sysinfo::System;
 
