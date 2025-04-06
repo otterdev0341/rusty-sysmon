@@ -1,4 +1,5 @@
 use std::{thread, time::Duration, vec};
+use num_cpus::get_physical;
 
 use sysinfo::System;
 
@@ -35,10 +36,8 @@ impl CpuUtill {
     }
 
     pub fn get_cpu_core() -> u32 {
-        let mut sys = Self::refreshed_system();
-        sys.refresh_all();
-        let cpus = sys.cpus();
-        let core = cpus.len() as u32;
+        
+        let core = num_cpus::get_physical() as u32 ;
         core
 
     }
@@ -65,5 +64,10 @@ impl CpuUtill {
             result.data.push(temp);
         }
         result
+    }
+
+    pub fn get_thread_count() -> u32 {
+        let thread_count = thread::available_parallelism().unwrap().get();
+        thread_count as u32
     }
 }
