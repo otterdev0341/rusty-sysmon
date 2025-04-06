@@ -7,7 +7,7 @@
 
 use std::{thread, time::Duration};
 
-use rusty_sysmon::utility::{cpu::CpuUtill, host::HostUtil, ram::RamUtil};
+use rusty_sysmon::utility::{cpu::CpuUtill, host::HostUtil, network::NetworkUtill, ram::RamUtil};
 use sysinfo::System;
 
 
@@ -32,11 +32,14 @@ fn main() {
     // let os_host_name = HostUtil::get_host_name();
     // println!("{}", os_host_name);
 
-    let cpu_core = CpuUtill::get_cpu_core();
-    println!("cpu core of this machine {:?} core.", cpu_core);
-    let trait_check = CpuUtill::get_thread_count();
-    println!("thread count of this machine {:?} thread.", trait_check);
+    // let cpu_core = CpuUtill::get_cpu_core();
+    // println!("cpu core of this machine {:?} core.", cpu_core);
+    // let trait_check = CpuUtill::get_thread_count();
+    // println!("thread count of this machine {:?} thread.", trait_check);
    
+   // Network
+//    let network = NetworkUtill::get_host_ipv6();
+//    println!("{}", network);
 
 
 
