@@ -1,7 +1,8 @@
-use std::{collections::HashMap, default, thread, time::Duration};
+use std::{collections::{HashMap, HashSet}, default, thread, time::Duration};
 
 
 use local_ip_address::{self, linux::{local_ip, local_ipv6}};
+use netstat2::{get_sockets_info, AddressFamilyFlags, ProtocolFlags, ProtocolSocketInfo, TcpState};
 use sysinfo::{Networks, System};
 
 pub struct NetworkUtill{}
@@ -100,4 +101,27 @@ impl NetworkUtill {
         result
 
     }
+
+    pub fn get_allow_port_list() -> Vec<u16> {
+        let af_flags = AddressFamilyFlags::IPV4 | AddressFamilyFlags::IPV6;
+        let proto_flags = ProtocolFlags::TCP;
+
+        let sockets = get_sockets_info(af_flags, proto_flags).expect("Unable to get socket info");
+
+        // println!("Open listening ports:");
+        let mut port_result = HashSet::new();
+        for socket in sockets {
+            let local_port = socket.local_port();
+            if let ProtocolSocketInfo::Tcp(tcp) = socket.protocol_socket_info {
+                if tcp.state == TcpState::Listen {
+                    port_result.insert(local_port);
+                    // println!("Port: {}", local_port);
+                }
+            }
+        }
+        let mut sorted_vec: Vec<_> = port_result.into_iter().collect();
+        sorted_vec.sort();
+        sorted_vec
+    }
+
 }

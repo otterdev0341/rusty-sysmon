@@ -7,6 +7,7 @@
 
 use std::{thread, time::Duration};
 
+use netstat2::{get_sockets_info, AddressFamilyFlags, ProtocolFlags, ProtocolSocketInfo, TcpState};
 use rusty_sysmon::utility::{cpu::CpuUtill, host::HostUtil, network::NetworkUtill, ram::RamUtil};
 use sysinfo::System;
 
@@ -41,11 +42,22 @@ fn main() {
 //    let network = NetworkUtill::get_host_ipv6();
 //    println!("{}", network);
 
-    let data = NetworkUtill::get_network_traffic_per_second();
-    for thing in data.data {
-        println!("device {}, upload: {} kb, download {} kb", thing.interface_name, thing.upload_per_sec, thing.download_per_sec)
+    // let data = NetworkUtill::get_network_traffic_per_second();
+    // for thing in data.data {
+    //     println!("device {}, upload: {} kb, download {} kb", thing.interface_name, thing.upload_per_sec, thing.download_per_sec)
+    // }
+    
+    let port_openned = NetworkUtill::get_allow_port_list();
+    for x in port_openned{
+        println!("allow on port: {}",x);
     }
 
 
-
 }
+
+        
+
+
+
+
+
