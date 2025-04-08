@@ -17,7 +17,7 @@ impl RamUtil {
         
         let sys = Self::refreshed_system();
         // convert
-        let ram = ConvertHelper::mb_to_gb(sys.total_memory());
+        let ram = ConvertHelper::byte_to_gb(sys.total_memory());
         ram.round()
 
     }
@@ -26,7 +26,7 @@ impl RamUtil {
         // initial
         let sys = Self::refreshed_system();
         // convert
-        let used_ram = ConvertHelper::mb_to_gb(sys.used_memory());
+        let used_ram = ConvertHelper::byte_to_gb(sys.used_memory());
         used_ram
         
     }
@@ -35,21 +35,21 @@ impl RamUtil {
         // initial
         let sys = Self::refreshed_system();
 
-        let swap_size = ConvertHelper::mb_to_gb(sys.total_swap());
+        let swap_size = ConvertHelper::byte_to_gb(sys.total_swap());
         swap_size
     }
 
     pub fn get_swap_used() -> f64 {
         // initial
         let sys = Self::refreshed_system();
-        let swap_used = ConvertHelper::mb_to_gb(sys.used_swap());
+        let swap_used = ConvertHelper::byte_to_gb(sys.used_swap());
         swap_used
     }
 
     pub fn get_swap_free() -> f64 {
         // initial
         let sys = Self::refreshed_system();
-        let swap_free = ConvertHelper::mb_to_gb(sys.free_swap());
+        let swap_free = ConvertHelper::byte_to_gb(sys.free_swap());
         swap_free
     }
 }

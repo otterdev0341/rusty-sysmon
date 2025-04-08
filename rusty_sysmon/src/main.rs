@@ -8,7 +8,7 @@
 use std::{thread, time::Duration};
 
 use netstat2::{get_sockets_info, AddressFamilyFlags, ProtocolFlags, ProtocolSocketInfo, TcpState};
-use rusty_sysmon::utility::{cpu::CpuUtill, host::HostUtil, network::NetworkUtill, ram::RamUtil};
+use rusty_sysmon::utility::{convert_helper::ConvertHelper, cpu::CpuUtill, disk::DiskUtill, host::HostUtil, network::NetworkUtill, ram::RamUtil};
 use sysinfo::System;
 
 
@@ -47,11 +47,15 @@ fn main() {
     //     println!("device {}, upload: {} kb, download {} kb", thing.interface_name, thing.upload_per_sec, thing.download_per_sec)
     // }
     
-    let port_openned = NetworkUtill::get_allow_port_list();
-    for x in port_openned{
-        println!("allow on port: {}",x);
-    }
+    // let port_openned = NetworkUtill::get_allow_port_list();
+    // for x in port_openned{
+    //     println!("allow on port: {}",x);
+    // }
 
+   let data = DiskUtill::get_disk_data(2);
+   println!("{:?}", data);
+    let disk_capacity_gb = data.disk_capacity_byte / 1_073_741_824;
+    print!("capcacity of disk is : {:.2} GB", disk_capacity_gb);
 
 }
 
