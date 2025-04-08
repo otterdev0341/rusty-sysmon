@@ -8,7 +8,7 @@
 use std::{thread, time::Duration};
 
 use netstat2::{get_sockets_info, AddressFamilyFlags, ProtocolFlags, ProtocolSocketInfo, TcpState};
-use rusty_sysmon::utility::{convert_helper::ConvertHelper, cpu::CpuUtill, disk::DiskUtill, host::HostUtil, network::NetworkUtill, ram::RamUtil};
+use rusty_sysmon::utility::{convert_helper::ConvertHelper, cpu::CpuUtill, disk::DiskUtill, host::HostUtil, network::NetworkUtill, process::ProcessUtill, ram::RamUtil};
 use sysinfo::System;
 
 
@@ -52,10 +52,14 @@ fn main() {
     //     println!("allow on port: {}",x);
     // }
 
-   let data = DiskUtill::get_disk_data(2);
-   println!("{:?}", data);
-    let disk_capacity_gb = data.disk_capacity_byte / 1_073_741_824;
-    print!("capcacity of disk is : {:.2} GB", disk_capacity_gb);
+//    let data = DiskUtill::get_disk_data(2);
+//    println!("{:?}", data);
+//    let disk_capacity_gb = data.disk_capacity_byte / 1_073_741_824;
+//    print!("capcacity of disk is : {:.2} GB", disk_capacity_gb);
+
+    // PID Test
+    let data = ProcessUtill::get_all_process_detail();
+    
 
 }
 

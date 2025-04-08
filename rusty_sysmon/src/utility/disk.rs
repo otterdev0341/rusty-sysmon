@@ -1,4 +1,4 @@
-use sysinfo::{ Disks, System};
+use sysinfo::Disks;
 
 use super::convert_helper::ConvertHelper;
 

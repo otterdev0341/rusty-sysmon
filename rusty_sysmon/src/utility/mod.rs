@@ -4,3 +4,4 @@ pub mod host;
 pub mod cpu;
 pub mod network;
 pub mod disk;
+pub mod process;
