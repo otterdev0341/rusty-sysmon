@@ -1,10 +1,23 @@
 use sysinfo::{Pid, System};
+use thiserror::Error;
 use crate::utility::convert_helper::ConvertHelper;
 use super::cpu::CpuUtill;
 
 pub struct ProcessUtill{}
 
+#[derive(Debug, Error)]
+pub enum ProcessKillError {
+    #[error("Fail to kill this process")]
+    FailToKill,
+    #[error("PID not found")]
+    FailToFindPid
+}
 
+#[derive(Debug, Error)]
+pub enum PidOperationError {
+    #[error("PID not found")]
+    PidNotFound
+}
 
 impl ProcessUtill {
     
@@ -58,7 +71,7 @@ impl ProcessUtill {
             };
             // if found process extract data and return result
             result.pid = extract_pid;
-            result.process_name = ConvertHelper::os_str_to_string(process.name());
+            result.process_name = ConvertHelper::os_str_to_string(process.name()).unwrap_or_default();
             result.cpu_used = process.cpu_usage();
             result.memory_used = process.memory();
             result.disk_read = process.disk_usage().read_bytes;
@@ -77,27 +90,33 @@ impl ProcessUtill {
         filtered_data
     }
 
-    pub fn kill_process_by_pid(pid: u32) -> Result<(),String> {
+    pub fn kill_process_by_pid(pid: u32) -> Result<(),ProcessKillError> {
         let sys = Self::refreshed_system();
-        let process = Self::u32_to_pid(pid);
+        let process_id = Self::u32_to_pid(pid);
 
-        match process {
-            Some(the_process) => {
-                let operation_result = sys.process(the_process);
-                match operation_result {
-                    Some(target) => {
-                        target.kill();
-                        Ok(())
+        match process_id {
+            Ok(target_id) => {
+                match sys.process(target_id) {
+                    Some(target_process) => {
+                        let operation_result = target_process.kill();
+                        if operation_result == true {
+                            Ok(())
+                        } else {
+                            Err(ProcessKillError::FailToKill)
+                        }
                     },
-                    None => return Err(format!("Failed to kill process {}", pid))
+                    None => {
+                        return Err(ProcessKillError::FailToFindPid);
+                    }
                 }
-
             },
-            None => { Err(format!("Process {} not found!!!", pid))}
+            Err(_) => {
+                return Err(ProcessKillError::FailToFindPid)
+            }
         }
     }
 
-    pub fn u32_to_pid(target_pid: u32) -> Option<Pid> {
+    pub fn u32_to_pid(target_pid: u32) -> Result<Pid, PidOperationError> {
         let sys = Self::refreshed_system();
         let mut pid: Option<&Pid> = None;
         for (inner_pid, _process) in sys.processes() {
@@ -106,7 +125,11 @@ impl ProcessUtill {
                 break;
             }
         }
-        pid.copied()
+       match pid {
+        Some(data) => Ok(*data),
+        None => Err(PidOperationError::PidNotFound)
+       }
+        
     }
 
 }

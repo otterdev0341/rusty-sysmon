@@ -13,43 +13,55 @@ impl RamUtil {
         sys
     }
 
-    pub fn get_total_ram_gb() -> f64 {
-        
+    pub fn get_total_ram_gb() -> Option<f64> {  
         let sys = Self::refreshed_system();
         // convert
         let ram = ConvertHelper::byte_to_gb(sys.total_memory());
-        ram.round()
-
+        match ram {
+            Ok(data) => Some(data.round()),
+            Err(_) => None
+        }
     }
 
-    pub fn get_used_ram_gb() -> f64 {
+    pub fn get_used_ram_gb() -> Option<f64> {
         // initial
         let sys = Self::refreshed_system();
         // convert
         let used_ram = ConvertHelper::byte_to_gb(sys.used_memory());
-        used_ram
-        
+        match used_ram {
+            Ok(data) => Some(data),
+            Err(_) => None
+        }   
     }
 
-    pub fn get_swap_size() -> f64 {
+    pub fn get_swap_size() -> Option<f64> {
         // initial
         let sys = Self::refreshed_system();
 
         let swap_size = ConvertHelper::byte_to_gb(sys.total_swap());
-        swap_size
+        match swap_size {
+            Ok(data) => Some(data),
+            Err(_) => None
+        }
     }
 
-    pub fn get_swap_used() -> f64 {
+    pub fn get_swap_used() -> Option<f64> {
         // initial
         let sys = Self::refreshed_system();
         let swap_used = ConvertHelper::byte_to_gb(sys.used_swap());
-        swap_used
+        match swap_used {
+            Ok(data) => Some(data),
+            Err(_) => None
+        }
     }
 
-    pub fn get_swap_free() -> f64 {
+    pub fn get_swap_free() -> Option<f64> {
         // initial
         let sys = Self::refreshed_system();
         let swap_free = ConvertHelper::byte_to_gb(sys.free_swap());
-        swap_free
+        match swap_free {
+            Ok(data) => Some(data),
+            Err(_) => None
+        }
     }
 }

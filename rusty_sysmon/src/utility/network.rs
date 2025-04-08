@@ -1,9 +1,9 @@
-use std::{collections::{HashMap, HashSet}, default, thread, time::Duration};
+use std::{collections::{HashMap, HashSet}, thread, time::Duration};
 
 
 use local_ip_address::{self, linux::{local_ip, local_ipv6}};
 use netstat2::{get_sockets_info, AddressFamilyFlags, ProtocolFlags, ProtocolSocketInfo, TcpState};
-use sysinfo::{Networks, System};
+use sysinfo::Networks;
 
 pub struct NetworkUtill{}
 
@@ -36,26 +36,22 @@ impl ResNetworkTrafficDetail {
     }
 }
 impl NetworkUtill {
-    pub fn get_host_ipv4() -> String {
+    pub fn get_host_ipv4() -> Option<String> {
         match local_ip() {
-            Ok(data) => data.to_string(),
+            Ok(data) => Some(data.to_string()),
             Err(_) => {
-                String::from("can't retrive ipv6 from this machine")
+                None
             }
         }
     }
 
-    pub fn get_host_ipv6() -> String {
+    pub fn get_host_ipv6() -> Option<String> {
         match local_ipv6() {
-            Ok(data) => data.to_string(),
+            Ok(data) => Some(data.to_string()),
             Err(_) => {
-                String::from("can't retrive ipv6 from this machine")
+                None
             }
         }
-    }
-
-    pub fn get_network_interface_detail() {
-        unimplemented!()
     }
 
     pub fn get_network_traffic_per_second() -> ResNetworkTrafficDetail  {

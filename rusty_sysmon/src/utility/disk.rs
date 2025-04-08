@@ -31,14 +31,17 @@ impl DiskUtill{
     }
 
 
-    pub fn get_phycical_disk_list() {
+    pub fn get_phycical_disk_list() -> Vec<String> {
         let disks = Self::refreshed_disk();
+        let mut result = Vec::<String>::new();
         for data in &disks {
             let disk_type = data.kind().to_string();
             if disk_type == "SSD".to_owned() || disk_type == "HDD".to_owned() {
-                println!("{:?}", data);
+                let temp_name = ConvertHelper::os_str_to_string(data.name()).unwrap_or_default();
+                result.push(temp_name);
             }     
         }
+        result
     }
 
     pub fn get_disk_data(target: u32) -> DiskData {
@@ -57,9 +60,9 @@ impl DiskUtill{
                     None => "not available".to_string(),
                 };
                 // add extract data into struct to return
-                result.name = ConvertHelper::os_str_to_string(&name);
+                result.name = ConvertHelper::os_str_to_string(&name).unwrap_or_default();
                 result.disk_type = disk_type;
-                result.disk_system = ConvertHelper::os_str_to_string(&disk_system);
+                result.disk_system = ConvertHelper::os_str_to_string(&disk_system).unwrap_or_default();
                 result.disk_capacity_byte = disk_capacity;
                 result.disk_used_byte = disk_used;
                 result.disk_free_byte = disk_free;

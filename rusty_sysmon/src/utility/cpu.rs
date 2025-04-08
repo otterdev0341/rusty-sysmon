@@ -36,10 +36,8 @@ impl CpuUtill {
     }
 
     pub fn get_cpu_core() -> u32 {
-        
         let core = num_cpus::get_physical() as u32 ;
         core
-
     }
 
     pub fn get_cpu_used() -> ResCpuUsed{
