@@ -1,19 +1,13 @@
+#![cfg_attr(not(debug_assertions), windows_subsystem = "windows")]
+
+use std::error::Error;
+
 slint::include_modules!();
 
-// fn main() -> Result<(), slint::PlatformError> {
-//     let ui = AddIt::new()?;
-//     ui.run()
-// }
-
-use std::{thread, time::Duration};
-
-use netstat2::{get_sockets_info, AddressFamilyFlags, ProtocolFlags, ProtocolSocketInfo, TcpState};
-use rusty_sysmon::utility::{convert_helper::ConvertHelper, cpu::CpuUtill, disk::DiskUtill, host::HostUtil, network::NetworkUtill, process::ProcessUtill, ram::RamUtil};
-use sysinfo::System;
 
 
-fn main() -> Result<(), slint::PlatformError> {
-    let ui = NetworkPage::new()?;
+fn main() -> Result<(), Box<dyn Error>> {
+    let ui = AppEntry::new()?;
     ui.run()?;
 
     Ok(())

@@ -1,3 +1,5 @@
 fn main() {
-    slint_build::compile("ui/page/network_page.slint").unwrap();
+    // This is the build script for the Slint UI framework.
+    slint_build::compile("ui/app.slint").expect("Slint build failed");
+    
 }
