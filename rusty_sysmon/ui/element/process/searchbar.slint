@@ -1,0 +1,37 @@
+import { RoundedButton } from "../icon_button/round_button.slint";
+import { PidDisplay} from "pid.slint";
+export component Searchbar {
+    VerticalLayout {
+        
+        Rectangle {
+            // search input, searuch button, clear button
+            HorizontalLayout {
+                spacing: 10px;
+                
+                TextInput {                
+                    width: 200px;
+                    height: 100%;
+                    padding: 5px;
+                    color: black;
+                    
+                }
+                RoundedButton {
+                    text: "Search";
+                    width: 80px;
+                    height: 30px;
+                    padding: 5px;
+                    
+                }
+                RoundedButton {
+                    text: "Clear";
+                    width: 80px;
+                    height: 30px;
+                    padding: 5px;
+                    
+                }
+            }
+            
+        }
+    }
+    
+}

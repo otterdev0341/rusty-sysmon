@@ -1,0 +1,53 @@
+export component Cpu {
+    // div
+    Rectangle {
+
+    }
+}
+
+export component CoreDetail {
+    in property <int> core_unit: 0;
+
+    Rectangle {
+        Text {
+            text: {"CORE: " + core_unit};
+        }
+    }
+}
+
+export component ThreadDetail {
+    in property <int> thread_unit: 0;
+
+    Rectangle {
+        Text {
+            text: {"THREAD: " + thread_unit};
+        }
+    }
+}
+
+export component UsedCpuDetail {
+    in property <int> cpu_used: 0;
+
+    Rectangle {
+        Text {
+            text: {"USED: " + cpu_used};
+        }
+    }
+}
+
+export component CpuCore {
+    in-out property <int> core_no;
+    in-out property <int> percent_used;
+    Rectangle {
+        Text {
+            text: {"CORE " + core_no +" : " + percent_used + "%"}
+        }
+    }
+}
+
+export component CpuGraph {
+    
+}
+export component CpuCard {
+
+}

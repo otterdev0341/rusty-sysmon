@@ -1,0 +1,23 @@
+export component RoundedButton {
+     in property <string> text: "Button";  // Declare a property for the button's text
+    
+
+    // Rectangle background with dynamic width and height
+    Rectangle {
+        width: root.width;      // Bind to the width property
+        height: root.height;    // Bind to the height property
+        background: white;
+        padding: 8px;
+        border-radius: 12px;
+    }
+
+    // Text inside the button
+    Text {
+        text: root.text;        // Bind to the text property
+        color: grey;
+        font-size: 12px;
+        horizontal-alignment: center;
+        vertical-alignment: center;
+        opacity: 0.8;
+    }
+}

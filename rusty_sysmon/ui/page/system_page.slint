@@ -1,9 +1,55 @@
 export component SystemPage inherits Window {
-    Text {
-        text: "System";
-        horizontal-alignment: center;
-        vertical-alignment: center;
-        font-size: 24px;
+    
+    GridLayout {
+        Row {
+            
+            HorizontalLayout {
+                height: 80px;
+                
+                
+                Rectangle {
+                    background: yellow;
+                    width: 50%;
+                    
+                    Text{
+                        
+                        text: "CPU Detail";
+                    }
+                }
+                Rectangle {
+                    background: blue;
+                    width: 50%;
+                    Text{
+                        text: "RAM Detail";
+                    }
+                }
+            }
+        }
+        Row {
+            HorizontalLayout {
+                
+                width: 300px;
+                height: 80px;
+            
+                alignment: center;
+                
+                Rectangle {
+                    background: red;
+                    width: 50%;
+                    Text{
+                        text: "Disk Detail";
+                    }
+                }
+                Rectangle {
+                    background: green;
+                    width: 50%;
+                    Text{
+                        text: "System Info";
+                    }
+                }
+            }
+        }
     }
+
     
 }
