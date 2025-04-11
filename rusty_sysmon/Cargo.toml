@@ -8,9 +8,6 @@ local-ip-address = "0.6.3"
 netstat2 = "0.11.1"
 num_cpus = "1.16.0"
 plotters = "0.3.7"
-slint = "1.10.0"
 sysinfo = "0.34.2"
 thiserror = "2.0.12"
 
-[build-dependencies]
-slint-build = "1.10.0"
